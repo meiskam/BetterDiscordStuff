@@ -1,4 +1,4 @@
-//META{"name":"replaceInputText"}*//
+﻿//META{"name":"replaceInputText"}*//
 
 /*@cc_on
 @if (@_jscript)
@@ -26,7 +26,7 @@ var replaceInputText = (function() {
 	return class replaceInputText {
 		getName() { return "Replace Input Text" }
 		getDescription() { return "Replace text with other text in the text input box" }
-		getVersion() { return "1.1.0" }
+		getVersion() { return "1.2.0" }
 		getAuthor() { return "lixbin" }
 
 		load() {}
@@ -47,9 +47,24 @@ var replaceInputText = (function() {
 			const teA = $('.channel-text-area-default div textarea');
 			let replacements = {
 				":)": ":blobsmile:",
+				":-)": ":blobsmile:",
 				":(": ":blobfrown:",
+				":-(": ":blobfrown:",
 				"-.-": ":blobexpressionless:",
-				":P": ":blobcheeky:"
+				":|": ":blobexpressionless:",
+				":-|": ":blobexpressionless:",
+				":P": ":blobcheeky:",
+				":-P": ":blobcheeky:",
+				":/": ":blobawkward:",
+				":'(": ":blobcry:",
+				":D": ":blobgrin:",
+				":-D": ":blobgrin:",
+				"O_O": ":blobsleepless:",
+				":o": ":blobopenmouth:",
+				":shrug2:": "¯\\_(ツ)_/¯",
+				">:(": ":blobangry:",
+				";)": ":blobwink:",
+				";-)": ":blobwink:"
 			};
 			if(!teA.length) return;
 			teA.off('keyup.QJsl').on('keyup.QJsl', (e) => {
