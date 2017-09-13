@@ -27,7 +27,7 @@ var replaceInputText = (function() {
 	return class replaceInputText {
 		getName() { return "Replace Input Text"; }
 		getDescription() { return "Replace text with other text in the text input box"; }
-		getVersion() { return "1.3.0"; }
+		getVersion() { return "1.3.2"; }
 		getAuthor() { return "lixbin"; }
 
 		load() {}
@@ -69,26 +69,15 @@ var replaceInputText = (function() {
 			} else {
 				var map = {};
 				map = new Map([
-					[":shrug2:","¯\\_(ツ)_/¯"],
-					[":)",":blobsmile:"],
-					[":-)",":blobsmile:"],
-					[":(",":blobfrown:"],
-					[":-(",":blobfrown:"],
-					["-.-",":blobexpressionless:"],
-					[":|",":blobexpressionless:"],
-					[":-|",":blobexpressionless:"],
-					[":P",":blobcheeky:"],
-					[":-P",":blobcheeky:"],
-					[":-/",":blobawkward:"],
-					[":'(",":blobcry:"],
-					[":D",":blobgrin:"],
-					[":-D",":blobgrin:"],
-					["O_O",":blobsleepless:"],
-					[":o",":blobopenmouth:"],
-					[">:(",":blobangry:"],
-					[";)",":blobwink:"],
-					[";-)",":blobwink:"],
-					[":?:",":blobtilt:"]
+					[":shrug2:","\u00AF\\_(\u30C4)_/\u00AF"],
+					[":lenny:","( \u0361\u00B0 \u035C\u0296 \u0361\u00B0)"],
+					[":table:","(\u256F\u00B0\u25A1\u00B0\uFF09\u256F\uFE35 \u253B\u2501\u253B"],
+					[":disapprove:","\u0CA0_\u0CA0"],
+					["=/=","\u2260"],
+					[":-)",":smiley:"],
+					[":-(",":frowning:"],
+					[":-P",":stuck_out_tongue:"],
+					[":-D",":smile:"]
 				]);
 				this.saveSettings(map);
 				return map;
