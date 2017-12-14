@@ -13,7 +13,7 @@
 		shell.Popup("I'm in the correct folder already.\nJust reload Discord with Ctrl+R.", 0, "I'm already installed", 0x40);
 	} else if (!fs.FolderExists(pathPlugins)) {
 		shell.Popup("I can't find the BetterDiscord plugins folder.\nAre you sure it's even installed?", 0, "Can't install myself", 0x10);
-	} else if (shell.Popup("Should I copy myself to BetterDiscord's plugins folder for you?", 0, "Do you need some help?", 03x4) === 6) {
+	} else if (shell.Popup("Should I copy myself to BetterDiscord's plugins folder for you?", 0, "Do you need some help?", 0x34) === 6) {
 		fs.CopyFile(pathSelf, fs.BuildPath(pathPlugins, fs.GetFileName(pathSelf)), true);
 		// Show the user where to put plugins in the future
 		shell.Exec("explorer " + pathPlugins);
@@ -27,7 +27,7 @@ var replaceInputText = (function() {
 	return class replaceInputText {
 		getName() { return "Replace Input Text"; }
 		getDescription() { return "Replace text with other text in the text input box"; }
-		getVersion() { return "1.3.2"; }
+		getVersion() { return "1.3.3"; }
 		getAuthor() { return "lixbin"; }
 
 		load() {}
@@ -69,7 +69,7 @@ var replaceInputText = (function() {
 			} else {
 				var map = {};
 				map = new Map([
-					[":shrug2:","\u00AF\\_(\u30C4)_/\u00AF"],
+					[":shruggie:","\u00AF\\_(\u30C4)_/\u00AF"],
 					[":lenny:","( \u0361\u00B0 \u035C\u0296 \u0361\u00B0)"],
 					[":table:","(\u256F\u00B0\u25A1\u00B0\uFF09\u256F\uFE35 \u253B\u2501\u253B"],
 					[":disapprove:","\u0CA0_\u0CA0"],
@@ -147,13 +147,13 @@ var replaceInputText = (function() {
 					<span id="title">Replace Input Text Settings</span>
 					<img src onerror='replaceInputText.settingsOnLoad()'>
 					<div id="buttons">
-						<button class="add_button blue_button">➕</button>
-						<button class="save_button blue_button">💾</button>
-						<button class="reload_button blue_button">🔃</button>
+						<button class="add_button blue_button">&#10133;</button>
+						<button class="save_button blue_button">&#128190;</button>
+						<button class="reload_button blue_button">&#128259;</button>
 					</div>
 					<div class="headers"><span>Find</span><span>Replace</span></div>
 					<div id="lines"></div>
-					<button id="add_button2" class="add_button blue_button">➕</button>
+					<button id="add_button2" class="add_button blue_button">&#10133;</button>
 				</div>
 			`;
 		}
@@ -174,14 +174,14 @@ var replaceInputText = (function() {
 			function fillLines(map) {
 				$("#settings_replaceInputText .line").remove();
 				map.forEach(function(value, key) {
-					$(wrapper).append('<div class="line"><input type="text" id="key" value="' + key + '" /><input type="text" id="value" value="' + value + '"/><button class="delete_button red_button">❌</button></div>');
+					$(wrapper).append('<div class="line"><input type="text" id="key" value="' + key + '" /><input type="text" id="value" value="' + value + '"/><button class="delete_button red_button">&#10060;</button></div>');
 				});
 				addBlankLine();
 			}
 			fillLines(replacements);
 
 			function addBlankLine() {
-				$(wrapper).append('<div class="line"><input type="text" id="key" /><input type="text" id="value" /><button class="delete_button red_button">❌</button></div>');
+				$(wrapper).append('<div class="line"><input type="text" id="key" /><input type="text" id="value" /><button class="delete_button red_button">&#10060;</button></div>');
 				$("#settings_replaceInputText .delete_button").click(function(e) {
 					e.preventDefault();
 					$(this).parent('div').remove();
