@@ -1,4 +1,4 @@
-//META{"name":"replaceInputText"}*//
+//META{"name":"replaceInputText","website":"https://github.com/meiskam/BetterDiscordStuff/tree/master/Plugins","source":"https://raw.githubusercontent.com/meiskam/BetterDiscordStuff/master/Plugins/replaceInputText.plugin.js"}*//
 
 /*@cc_on
 @if (@_jscript)
@@ -23,9 +23,9 @@
 @else @*/
 
 class replaceInputText {
-	getName() { return "Replace Input Text"; }
-	getDescription() { return "Replace text with other text in the text input box"; }
-	getVersion() { return "1.3.4"; }
+	getName() { return "ReplaceInputText"; }
+	getDescription() { return "Replace text with other text in the message box"; }
+	getVersion() { return "1.4.1"; }
 	getAuthor() { return "lixbin"; }
 
 	load() {}
@@ -51,19 +51,31 @@ class replaceInputText {
 		textArea.off('keyup.QJsl').on('keyup.QJsl', (e) => {
 			replaceInputText.replacements.forEach(function(value, key) {
 				if(textArea.val().includes(key)) {
-					textArea.val(textArea.text().replace(key, value));
-					textArea.focus()[0].dispatchEvent(new Event('input', { bubbles: true }));
+					replaceInputText.setNativeValue(textArea[0], textArea.val().replace(key, value));
+					textArea[0].dispatchEvent(new Event('input', { bubbles: true }));
 				}
 			});
 		});
 	}
 
+	static setNativeValue(element, value) {
+		const valueSetter = Object.getOwnPropertyDescriptor(element, 'value').set;
+		const prototype = Object.getPrototypeOf(element);
+		const prototypeValueSetter = Object.getOwnPropertyDescriptor(prototype, 'value').set;
+
+		if (valueSetter && valueSetter !== prototypeValueSetter) {
+			prototypeValueSetter.call(element, value);
+		} else {
+			valueSetter.call(element, value);
+		}
+	}
+
 	static saveSettings(map) {
-		bdPluginStorage.set("replaceInputText", "replacements", JSON.stringify([...map]));
+		BdApi.saveData("ReplaceInputText", "replacements", JSON.stringify([...map]));
 	}
 
 	static loadSettings() {
-		var settingsJson = bdPluginStorage.get("replaceInputText", "replacements");
+		var settingsJson = BdApi.loadData("ReplaceInputText", "replacements");
 		if (settingsJson) {
 			return new Map(JSON.parse(settingsJson));
 		} else {
@@ -79,7 +91,7 @@ class replaceInputText {
 				[":-P",":stuck_out_tongue:"],
 				[":-D",":smile:"]
 			]);
-			this.saveSettings(map);
+			replaceInputText.saveSettings(map);
 			return map;
 		}
 	}
@@ -92,13 +104,11 @@ class replaceInputText {
 				}
 				#settings_replaceInputText #title {
 					float: left;
-					margin-top: -30px;
 					font-size: 24px;
 				}
 				#settings_replaceInputText #buttons {
 					float: right;
-					margin-top: -30px;
-					margin-right: 20px;
+					margin-right: 10px;
 					font-size: 0;
 				}
 				#settings_replaceInputText input[type=text] {
@@ -131,6 +141,9 @@ class replaceInputText {
 					padding: 0px 5px;
 					border-radius: 5px;
 				}
+				#settings_replaceInputText .headers {
+					clear: left;
+				}
 				#settings_replaceInputText .headers span {
 					width: 260px;
 					padding: 8px 5px 0px 5px;
@@ -148,7 +161,7 @@ class replaceInputText {
 			return css + `
 			<div id="settings_replaceInputText">
 				<span id="title">Replace Input Text Settings</span>
-				<img src onerror='replaceInputText.settingsOnLoad()'>
+				<img src onerror='bdplugins.ReplaceInputText.type.settingsOnLoad()'>
 				<div id="buttons">
 					<button class="add_button blue_button">&#10133;</button>
 					<button class="save_button blue_button">&#128190;</button>
@@ -208,7 +221,7 @@ class replaceInputText {
 				}
 			}
 			replaceInputText.replacements = inputs;
-			self.saveSettings(replaceInputText.replacements);
+			replaceInputText.saveSettings(replaceInputText.replacements);
 			fillLines(replaceInputText.replacements);
 		});
 	}
