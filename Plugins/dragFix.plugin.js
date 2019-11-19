@@ -25,7 +25,7 @@
 class dragFix {
 	getName() { return "DragFix"; }
 	getDescription() { return "Allows dragging the very top of the discord titlebar while it is maximized"; }
-	getVersion() { return "1.0.0"; }
+	getVersion() { return "1.0.1"; }
 	getAuthor() { return "lixbin"; }
 
 	load() {
@@ -61,11 +61,11 @@ class dragFix {
 	}
 
 	handleMax() {
-		$( "div.da-withFrame" ).removeClass( "withFrame-margin" ).addClass( "withFrame-padding" )
+		$( "div.da-withFrame" ).removeClass( "withFrame-haYltI withFrame-margin" ).addClass( "withFrame-padding" )
 	}
 
 	handleUnMax() {
-		$( "div.da-withFrame" ).removeClass( "withFrame-padding" ).addClass( "withFrame-margin" )
+		$( "div.da-withFrame" ).removeClass( "withFrame-haYltI withFrame-padding" ).addClass( "withFrame-margin" )
 	}
 }
 
