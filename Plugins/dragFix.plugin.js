@@ -25,7 +25,7 @@
 class dragFix {
 	getName() { return "DragFix"; }
 	getDescription() { return "Allows dragging the very top of the discord titlebar while it is maximized"; }
-	getVersion() { return "1.0.1"; }
+	getVersion() { return "1.0.2"; }
 	getAuthor() { return "lixbin"; }
 
 	load() {
@@ -34,10 +34,6 @@ class dragFix {
 
 	start() {
 		BdApi.injectCSS("withFrame.dragfix", `
-		.withFrame-margin {
-			height: 18px;
-			margin-top: 4px;
-		}
 		.withFrame-padding {
 			height: 18px;
 			padding-top: 4px;
@@ -47,9 +43,7 @@ class dragFix {
 		this.EWindow.on("unmaximize", this.handleUnMax)
 
 		if (this.EWindow.isMaximized()) {
-			$( "div.da-withFrame" ).removeClass( "withFrame-haYltI" ).addClass( "withFrame-padding" )
-		} else {
-			$( "div.da-withFrame" ).removeClass( "withFrame-haYltI" ).addClass( "withFrame-margin" )
+			this.handleMax()
 		}
 	}
 
@@ -57,15 +51,15 @@ class dragFix {
 		BdApi.clearCSS("withFrame.dragfix")
 		this.EWindow.off("maximize", this.handleMax)
 		this.EWindow.off("unmaximize", this.handleUnMax)
-		$( "div.da-withFrame" ).removeClass( "withFrame-margin withFrame-padding" ).addClass( "withFrame-haYltI" )
+		this.handleUnMax()
 	}
 
 	handleMax() {
-		$( "div.da-withFrame" ).removeClass( "withFrame-haYltI withFrame-margin" ).addClass( "withFrame-padding" )
+		$( "div.da-withFrame" ).removeClass( "withFrame-haYltI" ).addClass( "withFrame-padding" )
 	}
 
 	handleUnMax() {
-		$( "div.da-withFrame" ).removeClass( "withFrame-haYltI withFrame-padding" ).addClass( "withFrame-margin" )
+		$( "div.da-withFrame" ).removeClass( "withFrame-padding" ).addClass( "withFrame-haYltI" )
 	}
 }
 
