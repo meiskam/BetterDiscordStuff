@@ -25,42 +25,21 @@
 class dragFix {
 	getName() { return "DragFix"; }
 	getDescription() { return "Allows dragging the very top of the discord titlebar while it is maximized"; }
-	getVersion() { return "1.0.2"; }
+	getVersion() { return "1.1.0"; }
 	getAuthor() { return "lixbin"; }
-
-	load() {
-		this.EWindow = require("electron").remote.getCurrentWindow()
-	}
 
 	start() {
 		BdApi.injectCSS("withFrame.dragfix", `
-		.withFrame-padding {
-			height: 18px;
-			padding-top: 4px;
+		.withFrame-haYltI {
+			margin-top: 1px;
+			padding-top: 3px;
 		}`)
-
-		this.EWindow.on("maximize", this.handleMax)
-		this.EWindow.on("unmaximize", this.handleUnMax)
-
-		if (this.EWindow.isMaximized()) {
-			this.handleMax()
-		}
 	}
 
 	stop() {
 		BdApi.clearCSS("withFrame.dragfix")
-		this.EWindow.off("maximize", this.handleMax)
-		this.EWindow.off("unmaximize", this.handleUnMax)
-		this.handleUnMax()
 	}
 
-	handleMax() {
-		$( "div.da-withFrame" ).removeClass( "withFrame-haYltI" ).addClass( "withFrame-padding" )
-	}
-
-	handleUnMax() {
-		$( "div.da-withFrame" ).removeClass( "withFrame-padding" ).addClass( "withFrame-haYltI" )
-	}
 }
 
 /*@end @*/
